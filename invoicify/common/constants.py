@@ -1,3 +1,4 @@
-CLOCKIFY_API_KEY = ""
-DEV_RATE = 28
-COACHING_RATE = 10
+import os
+
+
+CLOCKIFY_API_KEY = os.environ['CLOCKIFY_API_KEY']

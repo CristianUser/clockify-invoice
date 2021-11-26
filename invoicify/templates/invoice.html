@@ -121,13 +121,13 @@
       <h2>From</h2>
       <p>{{ company.name }}</p>
       <p>{{ company.address }}</p>
-      <p>{{ company.phone }} <br /> {{ company.mail }}</p>
+      <p>{{ company.phone }} <br /> {{ company.email }}</p>
     </section>
 
     <section class="client">
       <h2>To Client</h2>
       <p>{{ client.name }}</p>
-      <p>{{ client.company }}</p>
+      <p>{{ client.address }}</p>
     </section>
 
     <section class="work">
@@ -173,14 +173,14 @@
         <tr>
           <tr>
             <th> Account Type </th>
-            <td> {{ bank.account_type }} </td>
+            <td> {{ bank.account_type }} {{ account_currency }}</td>
           </tr>
-          <th> Account Name </th>
-          <td> {{ bank.account_name }}
+          <th> Account Owner </th>
+          <td> {{ bank.account_owner }}
         </tr>
         <tr>
-          <th> Account Holder Id </th>
-          <td> {{ bank.account_holder_id }}
+          <th> Account Owner Id </th>
+          <td> {{ bank.account_owner_id }}
           <td>
         </tr>
       </table>

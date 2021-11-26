@@ -12,6 +12,18 @@ def add_request_args(parser):
         "-i",
         "--invoice-number", required=False, help="Invoice Number",
     )
+    parser.add_argument(
+        "-a",
+        "--clockify-api-key",
+        required=False,
+        help="Clockify API Key",
+    )
+    parser.add_argument(
+        "-c",
+        "--config",
+        required=False,
+        help="Config File",
+    )
 
 
 def create_request_parser(parent):
