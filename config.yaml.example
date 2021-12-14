@@ -1,0 +1,27 @@
+tags:
+  development:
+    description: Development
+    rate: 10
+  coaching:
+    description: Coaching
+    rate: 10
+variables:
+  currency: USD
+  company:
+    name: Company Name
+    address: Company Address
+    phone: Company Phone
+    email: Company Email
+  client:
+    name: 'Client Name'
+    address: 'Client Address'
+    phone: 'Client Phone'
+    email: 'Client Email'
+  bank:
+    name: 'Bank Name'
+    account_number: 'account_number'
+    account_type: 'account_type'
+    account_currency: 'USD'
+    account_owner: 'John Doe'
+    account_owner_id: '0000000000'
+  
