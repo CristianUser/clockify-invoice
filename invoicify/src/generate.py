@@ -33,11 +33,12 @@ def seconds_to_hours(seconds):
 
 
 def get_child_duration(tag, report_group):
-    return [
+    tag_report = [
         child
         for child in report_group.get("children")
         if child.get("nameLowerCase") == tag
-    ][0].get("duration")
+    ]
+    return tag_report[0].get("duration") if len(tag_report) > 0 else 0
 
 
 def make_report(args, config):
