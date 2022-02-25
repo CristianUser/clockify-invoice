@@ -110,9 +110,9 @@
     <h1>Invoice</h1>
 
     <section class="details">
-      <span><b>Invoice #</b> {{ invoice_number }}</span>
+      <span style="margin-right: 48px"><b>Invoice #</b> {{ invoice_number }}</span>
       <span><b>Issued</b> {{ date_issue }}</span>
-      <span><b>Expires</b> {{ date_expire }}</span>
+      <!-- <span><b>Expires</b> {{ date_expire }}</span> -->
     </section>
 
     <section class="desc">
@@ -160,13 +160,11 @@
     </section>
 
     <section class="payment">
-      <h2> Payment </h2>
-      <p>Please transfer the corresponding amount for <b>{{ currency }} {{ total_cost }}</b> to the account
-        below.
-      </p>
+      <h2> Payment Info </h2>
+      <!-- <p>This invoice has the corresponding amount of <b>{{ currency }} {{ total_cost }}</b>, account details bellow.</p> -->
       <table>
         <tr>
-          <th> Name </th>
+          <th> Bank Name </th>
           <td> {{ bank.name }} </td>
         </tr>
         <tr>

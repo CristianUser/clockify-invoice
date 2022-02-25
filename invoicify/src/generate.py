@@ -4,7 +4,7 @@ from invoicify.common.constants import CLOCKIFY_API_KEY
 
 import logging
 
-from datetime import datetime
+from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 
 LOG = logging.getLogger(__name__)
@@ -12,6 +12,12 @@ LOG = logging.getLogger(__name__)
 
 def parse_date(date_string):
     return datetime.strptime(date_string, "%d-%m-%Y")
+
+
+def parse_end_date(date_string):
+    return datetime.combine(
+        datetime.strptime(date_string, "%d-%m-%Y"), time.max
+    )
 
 
 def add_n_months_to_date(date, n):
@@ -36,7 +42,7 @@ def get_child_duration(tag, report_group):
 
 def make_report(args, config):
     start_date = parse_date(args.start_date)
-    end_date = parse_date(args.end_date)
+    end_date = parse_end_date(args.end_date)
     clockify_api_key = args.clockify_api_key or CLOCKIFY_API_KEY
 
     if not clockify_api_key:
@@ -52,7 +58,7 @@ def make_report(args, config):
     LOG.debug("Got report data", extra={"report": report})
     report_group = report.get("groupOne")[0]
 
-    report_tags = config.get("tags").keys()
+    report_tags = list(config.get("tags").keys())
     tags_duration = {}
     tags_cost = {}
 
@@ -60,7 +66,9 @@ def make_report(args, config):
         tag_rate = config.get("tags").get(tag).get("rate")
         tags_duration[tag] = seconds_to_hours(get_child_duration(tag, report_group))
         tags_cost[tag] = tag_rate * tags_duration[tag]
-        LOG.debug("Got tag duration", extra={"tag": tag, "duration": tags_duration[tag]})
+        LOG.debug(
+            "Got tag duration", extra={"tag": tag, "duration": tags_duration[tag]}
+        )
         LOG.debug("Got tag cost", extra={"tag": tag, "cost": tags_cost[tag]})
 
     duration_total = sum(tags_duration.values())

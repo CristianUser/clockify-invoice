@@ -123,6 +123,7 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+compiled_templates
 
 config.yaml
 config.yml
