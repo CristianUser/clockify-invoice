@@ -52,12 +52,12 @@ class ClockifyAPI:
             "description": "",
             "rounding": False,
             "sortOrder": "ASCENDING",
-            "groups": ["PROJECT", "TAG"],
+            "groups": ["PROJECT", "TASK"],
             "sortColumn": "GROUP",
             "userLocale": "en_US",
             "withoutDescription": False,
             "zoomLevel": "WEEK",
-            "summaryFilter": {"groups": ["PROJECT", "TAG"], "sortColumn": "GROUP"},
+            "summaryFilter": {"groups": ["PROJECT", "TASK"], "sortColumn": "GROUP"},
             "exportType": "JSON",
         }
 
