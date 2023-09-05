@@ -42,20 +42,21 @@ def get_clockify_report(clockify, workspace_id, start_date, end_date):
         "description": "",
         "rounding": False,
         "withoutDescription": False,
+        "amounts": [],
         "amountShown": "HIDE_AMOUNT",
         "zoomLevel": "WEEK",
         "userLocale": "en-US",
+        "customFields": None,
+        "userCustomFields": None,
         "kioskIds": [],
-        "detailedFilter": {
-            "sortColumn": "DATE",
-            "page": 1,
-            "pageSize": 50,
-            "quickbooksSelectType": "ALL",
-            "options": {"totals": "CALCULATE"},
+        "summaryFilter": {
+            "sortColumn": "GROUP",
+            "groups": ["DATE", "TASK", "TIMEENTRY"],
+            "summaryChartType": "BILLABILITY",
         },
         "exportType": "JSON",
     }
-    return clockify.detailed_report(workspace_id, report_data)
+    return clockify.summary_report(workspace_id, report_data)
 
 
 def build_report_data(args, config):
@@ -75,23 +76,22 @@ def build_report_data(args, config):
     report = get_clockify_report(clockify, default_workspace, start_date, end_date)
     LOG.debug("Got report data", extra={"report": report})
 
-    print(report)
-
-    report_entries = report["timeentries"]
     parsed_entries = []
 
-    for entry in report_entries:
-        parsed_entry = {
-            "task": entry["taskName"],
-            "description": entry["description"],
-            "duration": round(seconds_to_hours(get_child_duration(entry)), 2),
-            "date": entry["timeInterval"]["start"][:10],
-        }
-        parsed_entries.append(parsed_entry)
-        LOG.debug(
-            "Got task duration",
-            extra={"task": entry, "parsed_entry": parsed_entry},
-        )
+    for group_a in report.get("groupOne"):
+        for group_b in group_a["children"]:
+            for entry in group_b["children"]:
+                parsed_entry = {
+                    "date": group_a["name"],
+                    "task": group_b["name"],
+                    "description": entry["name"],
+                    "duration": round(seconds_to_hours(entry["duration"]), 2),
+                }
+                parsed_entries.append(parsed_entry)
+                LOG.debug(
+                    "Got task duration",
+                    extra={"task": entry, "parsed_entry": parsed_entry},
+                )
 
     report_number = args.invoice_number or end_date.strftime("%Y%m%d")
 
@@ -123,10 +123,7 @@ def build_report_data(args, config):
 def make_report(args, config):
     data = build_report_data(args, config)
 
-    template = TemplateProcessor(
-        "report.html",
-        data
-    )
+    template = TemplateProcessor("report.html", data)
 
     report_range = data["report_range"]
     if args.export_type == "pdf":
