@@ -1,5 +1,6 @@
 import yaml
-from invoicify.src.generate import make_report
+from invoicify.src.generate import generate_invoice
+from invoicify.src.report import make_report
 
 
 # read yaml file
@@ -15,4 +16,6 @@ def init_runners(args):
     config = read_yaml(args.config)
 
     if (args.commands == 'generate'):
+        generate_invoice(args, config)
+    if (args.commands == 'report'):
         make_report(args, config)

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Invoice</title>
+  <style>
+    body {
+      font-family: Helvetica;
+      font-weight: 100;
+      font-size: 14px;
+      padding: 30px 40px;
+      color: #222;
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: 2em;
+      border-bottom: 2px solid #9bdedf;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.25em;
+      text-indent: -0.8em;
+      margin-bottom: 0.5em;
+    }
+
+    section {
+      padding-left: 1em;
+      margin-bottom: 22px;
+    }
+
+    b {
+      font-weight: bold;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    .details {
+      display: flex;
+      width: 90%;
+      padding-left: 0;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .details b {
+      padding-right: 6px;
+    }
+
+    .company,
+    .client {
+      float: left;
+      width: calc(50% - 1em);
+    }
+
+    .work {
+      clear: both;
+    }
+
+    .work h2 {
+      margin-bottom: 0;
+    }
+
+    .work table {
+      text-align: right;
+    }
+
+    .work table td:first-child,
+    .work table th:first-child {
+      text-align: left;
+    }
+
+    .work table th,
+    .work table td {
+      padding-right: 32px;
+    }
+
+    .work table th {
+      vertical-align: top;
+      padding-top: 0.75em;
+      padding-bottom: 0.25em;
+    }
+
+    .work table th span {
+      font-weight: 100;
+    }
+
+    .payment {
+      border-bottom: 2px solid #9bdedf;
+      padding-bottom: 24px;
+    }
+
+    .payment table {
+      text-align: left;
+    }
+
+    .payment table th {
+      padding-right: 32px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Invoice</h1>
+
+    <section class="details">
+      <span style="margin-right: 48px"><b>Invoice #</b> {{ invoice_number }}</span>
+      <span><b>Issued</b> {{ date_issue }}</span>
+      <!-- <span><b>Expires</b> {{ date_expire }}</span> -->
+    </section>
+
+    <section class="work">
+      <h2>Summary of Work</h2>
+      <table>
+        <tr>
+          <th>Task</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Duration (hr)</th>
+        </tr>
+        {% for item in work %}
+        <tr>
+          <td>{{ item.task }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.date }}</td>
+          <td>{{ item.duration }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+  </main>
+</body>
+
+</html>

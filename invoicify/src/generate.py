@@ -41,6 +41,26 @@ def get_child_duration(task, report_group):
     return task_report[0].get("duration") if len(task_report) > 0 else 0
 
 
+def get_clockify_report(clockify, workspace_id, start_date, end_date):
+    report_data = {
+        "amountShown": "HIDE_AMOUNT",
+        "customFields": None,
+        "dateRangeEnd": end_date.isoformat(),
+        "dateRangeStart": start_date.isoformat(),
+        "description": "",
+        "rounding": False,
+        "sortOrder": "ASCENDING",
+        "groups": ["PROJECT", "TASK"],
+        "sortColumn": "GROUP",
+        "userLocale": "en_US",
+        "withoutDescription": False,
+        "zoomLevel": "WEEK",
+        "summaryFilter": {"groups": ["PROJECT", "TASK"], "sortColumn": "GROUP"},
+        "exportType": "JSON",
+    }
+    return clockify.summary_report(workspace_id, report_data)
+
+
 def build_report_data(args, config):
     start_date = parse_date(args.start_date)
     end_date = parse_end_date(args.end_date)
@@ -55,7 +75,7 @@ def build_report_data(args, config):
     LOG.debug("Got user data", extra={"user": user})
     default_workspace = user["defaultWorkspace"]
 
-    report = clockify.summary_report(default_workspace, start_date, end_date)
+    report = get_clockify_report(clockify, default_workspace, start_date, end_date)
     LOG.debug("Got report data", extra={"report": report})
     report_group = report.get("groupOne")[0]
 
@@ -127,7 +147,7 @@ def build_report_data(args, config):
     }
 
 
-def make_report(args, config):
+def generate_invoice(args, config):
     data = build_report_data(args, config)
     template = TemplateProcessor(
         "invoice.html",
