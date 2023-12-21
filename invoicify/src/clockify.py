@@ -37,6 +37,7 @@ class ClockifyAPI:
     def get_user(self):
         url = f"{self.api_url}/user"
         r = self.session.request(method="GET", url=url)
+        r.raise_for_status()
         return r.json()
 
     def summary_report(self, workspace_id, data):

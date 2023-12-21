@@ -8,9 +8,6 @@ from setuptools import setup
 
 VERSION_RE = re.compile(r"VERSION\s+=\s+(.*)")
 # TEMPLATES_DIRECTORY = "invoicify/compiled_templates"
-# BOOTSTRAP_DEFINITIONS = [
-#     ("invoice", "./invoicify/templates/*.*"),
-# ]
 
 with open("invoicify/version.py", "rb") as file:
     VERSION = str(ast.literal_eval(VERSION_RE.search(file.read().decode("utf-8")).group(1)))
@@ -19,19 +16,6 @@ with open("invoicify/version.py", "rb") as file:
 def readme():
     with open("README.md", "r") as readme_file:
         return readme_file.read()
-
-
-# def copy_bootstrap_data(*paths):
-#     root = pathlib.Path(f"./{TEMPLATES_DIRECTORY}")
-#     root.mkdir(parents=True, exist_ok=True)
-#     os.system(f"touch {root.absolute()}/__init__.py")
-
-#     for path in paths:
-#         destination = pathlib.Path(f"./{TEMPLATES_DIRECTORY}")
-#         destination.mkdir(parents=True, exist_ok=True)
-#         tokens = path[1].rsplit("/", 1)
-#         for file in pathlib.Path(tokens[0]).glob(tokens[-1]):
-#             shutil.copy(file, destination)
 
 
 if __name__ == "__main__":

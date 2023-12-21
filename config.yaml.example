@@ -1,10 +1,8 @@
-tags:
+api_key: 'your-clockify-api-key'
+tasks:
   client work:
     description: Client Work
-    rate: 10
-  coaching:
-    description: Coaching
-    rate: 10
+    rate: 10 # USD per hour
 variables:
   currency: USD
   company:
@@ -15,13 +13,11 @@ variables:
   client:
     name: 'Client Name'
     address: 'Client Address'
-    phone: 'Client Phone'
-    email: 'Client Email'
   bank:
     name: 'Bank Name'
     account_number: 'account_number'
     account_type: 'account_type'
     account_currency: 'USD'
     account_owner: 'John Doe'
-    account_owner_id: '0000000000'
+    account_owner_id: '0000000000' # Personal ID number
   

@@ -62,7 +62,7 @@ def get_clockify_report(clockify, workspace_id, start_date, end_date):
 def build_report_data(args, config):
     start_date = parse_date(args.start_date)
     end_date = parse_end_date(args.end_date)
-    clockify_api_key = args.clockify_api_key or CLOCKIFY_API_KEY
+    clockify_api_key = args.clockify_api_key or config.get("api_key") or CLOCKIFY_API_KEY
 
     if not clockify_api_key:
         raise Exception("Missing Clockify API Key")
