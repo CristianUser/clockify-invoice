@@ -129,4 +129,5 @@ config.yaml
 config.yml
 
 invoice-*.pdf
+report-*.pdf
 invoice-*.html
