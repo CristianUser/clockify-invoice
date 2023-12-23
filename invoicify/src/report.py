@@ -1,33 +1,19 @@
 from invoicify.src.clockify import ClockifyAPI
 from invoicify.src.template import TemplateProcessor
 from invoicify.common.constants import CLOCKIFY_API_KEY
-
+from invoicify.common.utils import (
+    add_n_months_to_date,
+    format_date,
+    parse_date,
+    parse_end_date,
+    seconds_to_hours
+)
 import logging
 
-from datetime import datetime, time
-from dateutil.relativedelta import relativedelta
+from datetime import datetime
+
 
 LOG = logging.getLogger(__name__)
-
-
-def parse_date(date_string):
-    return datetime.strptime(date_string, "%d-%m-%Y")
-
-
-def parse_end_date(date_string):
-    return datetime.combine(parse_date(date_string), time.max)
-
-
-def add_n_months_to_date(date, n):
-    return date + relativedelta(months=n)
-
-
-def format_date(date):
-    return date.strftime("%d-%m-%Y")
-
-
-def seconds_to_hours(seconds):
-    return seconds / 3600
 
 
 def get_child_duration(task):
